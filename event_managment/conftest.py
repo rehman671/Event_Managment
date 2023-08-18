@@ -1,7 +1,7 @@
 import pytest
 
-from event_managment.users.models import User
-from event_managment.users.tests.factories import UserFactory
+from event_managment.user.models import User
+from event_managment.user.tests.factories import UserFactory
 
 
 @pytest.fixture(autouse=True)
