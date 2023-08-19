@@ -1,13 +1,13 @@
 from rest_framework import viewsets
 
 from .models import EventModel
-from .permissions import CustomPermission
+from .permissions import CustomPermission, IsEventOwner
 from .serializers import EventSerializer, PostSerializer
 
 
 class EventViewset(viewsets.ModelViewSet):
     queryset = EventModel.objects.all()
-    permission_classes = [CustomPermission]
+    permission_classes = [CustomPermission, IsEventOwner]
 
     def get_serializer_class(self):
         if self.action == "list":
