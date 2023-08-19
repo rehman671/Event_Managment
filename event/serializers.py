@@ -1,9 +1,13 @@
 from rest_framework import serializers
 
+from user.serializers import CustomUserSerializer
+
 from .models import EventModel
 
 
-class EventSerializer(serializers.HyperlinkedModelSerializer):
+class EventSerializer(serializers.ModelSerializer):
+    owner = CustomUserSerializer(read_only=True)
+
     class Meta:
         model = EventModel
         fields = ["title", "description", "date", "location", "owner", "attendees"]
