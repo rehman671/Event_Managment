@@ -8,8 +8,8 @@ from .views import CustomUserViewset, LoginView, LogoutView
 
 router = routers.DefaultRouter()
 
-router.register(r"user", CustomUserViewset)
-router.register(r"event", EventViewset)
+router.register(r"user", CustomUserViewset, basename="user")
+router.register(r"event", EventViewset, basename="event")
 
 urlpatterns = [
     path("", include(router.urls)),

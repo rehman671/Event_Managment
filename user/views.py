@@ -77,7 +77,8 @@ class LoginView(generics.GenericAPIView):
                         "username": loggedUser.username,
                         "email": loggedUser.email,
                         "token": token,
-                    }
+                    },
+                    status=status.HTTP_200_OK,
                 )
             else:
                 return Response(
