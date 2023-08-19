@@ -1,4 +1,6 @@
-from rest_framework import viewsets
+from rest_framework import permissions, status, viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from .models import EventModel
 from .permissions import CustomPermission, IsEventOwner
@@ -21,3 +23,13 @@ class EventViewset(viewsets.ModelViewSet):
 
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
+
+    @action(detail=True, methods=["POST"], permission_classes=[permissions.IsAuthenticated])
+    def attend(self, request, pk=None):
+        try:
+            event = EventModel.objects.get(eid=pk)
+        except EventModel.DoesNotExist:
+            return Response({"message": "Event Does not exist"}, status=status.HTTP_404_NOT_FOUND)
+        user = self.request.user
+        event.attendees.add(user)
+        return Response({"message": "Event Attended"}, status=status.HTTP_200_OK)

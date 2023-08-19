@@ -6,7 +6,8 @@ class CustomPermission(permissions.BasePermission):
         # Allow unauthenticated access for GET method
         if request.method == "GET":
             return True
-
+        if request.method == "POST":
+            return request.user and request.user.is_authenticated
         # Require authentication for other methods
         return request.user and request.user.is_authenticated
 
