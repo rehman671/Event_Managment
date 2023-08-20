@@ -2,7 +2,7 @@ from django.urls import reverse
 from rest_framework.test import APITestCase
 
 
-class TestSetup(APITestCase):
+class UserTestSetup(APITestCase):
     def setUp(self):
         self.signup_url = reverse("user-signup")
         self.login_url = reverse("login")
@@ -21,7 +21,7 @@ class TestSetup(APITestCase):
         return super().tearDown()
 
 
-class CustomUserTest(TestSetup):
+class CustomUserTest(UserTestSetup):
     def test_sign_user_fail(self):
         res = self.client.post(self.signup_url)
         self.assertEqual(res.status_code, 400)
